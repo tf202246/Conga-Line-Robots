@@ -131,7 +131,7 @@ void FlashCounter() {
 
   if (currentTimeCount - startTime >= 1000) { //If a second has passed since start time
     Serial.println("Flashes per second: " + String(flashCount));
-    if(flashCount==(ROBOT_NUM-1)){
+    if(flashCount==(ROBOT_NUM-1) || (ROBOT_NUM-1)==0){
       correctSignal = true;
   }
     else{
