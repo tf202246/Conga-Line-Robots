@@ -193,10 +193,11 @@ spin(leftServoSpeed,rightServoSpeed);
     if (correctSignal == true){
       updateDirection();
       spin(leftServoSpeed,rightServoSpeed);
-      Serial.println("Updated Direction");
+      Serial.println("Updated Direction and speed");
     }
     else{
-      Serial.println("Did not Updated Direction");
+      spin(0,0);
+      Serial.println("HALT");
     }
   }
 }
