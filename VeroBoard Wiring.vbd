@@ -1,0 +1,186 @@
+[VeroDes board definition file v0.01]
+
+DEFBOARD
+{
+   filename    "VeroBoard Wiring.vbd"
+
+   created     "14/03/2024 00:36:17"
+   lastsaved   "14/03/2024 00:54:41"
+
+   boardsize   26 holes, 24 tracks
+
+   components  9
+   {
+      defcompo 1
+      devid    "CCHW"
+      label    "CN2"
+      lblopp   False
+      position 2,19
+      rotation left
+      userdev  True
+
+      defcompo 2
+      devid    "IC_TRANSISTOR"
+      label    "IC1"
+      lblopp   False
+      position 9,23
+      rotation invert
+      userdev  False
+
+      defcompo 3
+      devid    "VARRES"
+      label    "R2"
+      lblopp   False
+      position 14,19
+      rotation left
+      userdev  True
+
+      defcompo 4
+      devid    "DI_LEDSTD"
+      label    "D1"
+      lblopp   False
+      position 10,9
+      rotation none
+      userdev  False
+
+      defcompo 5
+      devid    "DI_LEDSTD"
+      label    "D2"
+      lblopp   False
+      position 14,9
+      rotation none
+      userdev  False
+
+      defcompo 6
+      devid    "DI_LEDSTD"
+      label    "D3"
+      lblopp   False
+      position 18,9
+      rotation none
+      userdev  False
+
+      defcompo 7
+      devid    "DI_LEDSTD"
+      label    "D4"
+      lblopp   False
+      position 18,12
+      rotation none
+      userdev  False
+
+      defcompo 8
+      devid    "DI_LEDSTD"
+      label    "D5"
+      lblopp   False
+      position 14,12
+      rotation none
+      userdev  False
+
+      defcompo 9
+      devid    "DI_LEDSTD"
+      label    "D6"
+      lblopp   False
+      position 10,12
+      rotation none
+      userdev  False
+   }
+
+   wirelinks   5
+   {
+      deflink  1
+      startpos 6,21
+      endpos   6,22
+
+      deflink  2
+      startpos 7,20
+      endpos   7,10
+
+      deflink  3
+      startpos 21,10
+      endpos   21,13
+
+      deflink  4
+      startpos 20,9
+      endpos   20,12
+
+      deflink  5
+      startpos 8,12
+      endpos   8,19
+   }
+
+   trackbreaks 8
+   {
+      defbreak 1
+      position 22,19
+
+      defbreak 2
+      position 24,19
+
+      defbreak 3
+      position 24,22
+
+      defbreak 4
+      position 20,8
+
+      defbreak 5
+      position 20,7
+
+      defbreak 6
+      position 20,6
+
+      defbreak 7
+      position 20,5
+
+      defbreak 8
+      position 7,21
+   }
+
+   annotations 0
+}
+
+
+; ###########################
+; ### EMBEDDED COMPONENTS ###
+; ###########################
+
+DEFCOMPONENT
+{
+   name        "Connector HW"
+   identifier  "CCHW"
+   category    "Connectors"
+   pins        3
+   {
+      pin      1 at 9,11 home anno "+"
+      pin      2 at 11,11 negative anno "-"
+      pin      3 at 13,11 anno "Ref"
+   }
+   rects       2
+   {
+      rect     1 at 100,104 - 1,1
+      rect     2 at 88,108 - 88,48
+   }
+   circs       0
+   lines       0
+}
+
+DEFCOMPONENT
+{
+   name        "Potentiometer"
+   identifier  "VARRES"
+   category    "Resistors"
+   pins        3
+   {
+      pin      1 at 6,7 home
+      pin      2 at 8,7
+      pin      3 at 7,9
+   }
+   rects       1
+   {
+      rect     1 at 60,68 - 48,56
+   }
+   circs       0
+   lines       0
+}
+
+; ###################
+; ### END OF FILE ###
+; ###################
