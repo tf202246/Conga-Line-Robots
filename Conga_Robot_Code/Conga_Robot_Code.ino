@@ -1,4 +1,4 @@
-#define ROBOT_NUM 6
+#define ROBOT_NUM 2
 
 // ================================================================================
 ////Variables for movment of the robots
@@ -43,7 +43,7 @@ const int interval = 1000/NUMBER_OF_FLASHES/2; // Calculate thlashes per second,
 // ================================================================================
 ////Variables for reading if flashes are the correct code
 
-int SensorCentre = 0;
+#define SensorCentre A0
 
 unsigned long startTime = 0;
 int flashCount = 0;
@@ -73,7 +73,7 @@ void setup(void)
   pinMode(LED_PIN, OUTPUT);
 
   // Initialize the serial UART at 9600 bits per second.
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 // ================================================================================
 
@@ -119,9 +119,9 @@ void Flash() {
 void FlashCounter() {
   unsigned long currentTimeCount = millis(); //Stores start time
 
-  int lightIntensity = analogRead(SensorCentre); //Loads light intesity
-
-  if (lightIntensity > lightThreshold && !currentlyOn) { //If light is above threshold and has not been previously detected in this cycle
+  int lightIntensity = analogRead(SensorCentre); //Loads litgh
+  if (lightIntensity > lightThreshold && !currentlyOn intesity
+) { //If light is above threshold and has not been previously detected in this cycle
     flashCount++;
     currentlyOn = true;
   } else if (lightIntensity <= lightThreshold) {
@@ -145,59 +145,69 @@ void FlashCounter() {
 
 // ===============================================================================
 
-void updateDirection(){
+void updateDirection()
+{
   SensorLeft = 1023 - analogRead(LeftSensor); // Reads LDR sensor circuit 
 
-//delay(1); // delay to let adc settle
+  //delay(1); // delay to let adc settle
 
-SensorRight = 1023 - analogRead(RightSensor); // Reads LDR sensor circuit 
+  SensorRight = 1023 - analogRead(RightSensor); // Reads LDR sensor circuit 
 
-//delay(1); // delay to let adc settle
+  //delay(1); // delay to let adc settle
 
-SensorDifference = abs(SensorLeft - SensorRight); // Calculates differance between the two values
+  SensorDifference = abs(SensorLeft - SensorRight); // Calculates differance between the two values
 
-// This section of the sketch is what actually interprets the data and then runs the motors accordingly.
+  // This section of the sketch is what actually interprets the data and then runs the motors accordingly.
 
-if (SensorLeft > SensorRight && SensorDifference > sensDiffThresh) { // If left is more bright and the difference between the two sensors is above the threshold, Do:
-  leftServoSpeed = slowSpeed; //Sets left to slow speed
-  rightServoSpeed = maxSpeed-(maxSpeed*percentMotorDecrease); //Sets right to max speed (with percentage increase to fix differing speed issues
-}
+  if ((SensorLeft > SensorRight) && (SensorDifference > sensDiffThresh))
+  { // If left is more bright and the difference between the two sensors is above the threshold, Do:
+    leftServoSpeed = slowSpeed; //Sets left to slow speed
+    rightServoSpeed = maxSpeed-(maxSpeed*percentMotorDecrease); //Sets right to max speed (with percentage increase to fix differing speed issues
+  }
 
-if (SensorLeft < SensorRight && SensorDifference > sensDiffThresh) { // If left is more bright and the difference between the two sensors is above the threshold, Do:
-leftServoSpeed = maxSpeed; //Sets left to high speed
-rightServoSpeed = slowSpeed-(maxSpeed*percentMotorDecrease); //Sets right to slow speed (with percentage increase to fix differing speed issues
-}
-
-else if (SensorDifference < sensDiffThresh) { // If Sensor Differance is below threshold, Do:
-leftServoSpeed = maxSpeed; //Full Speed Foward
-rightServoSpeed = maxSpeed-(maxSpeed*percentMotorDecrease); // Full speed foward (with modifier)
-}
+  if ((SensorLeft < SensorRight) && (SensorDifference > sensDiffThresh))
+  { // If left is more bright and the difference between the two sensors is above the threshold, Do:
+    leftServoSpeed = maxSpeed; //Sets left to high speed
+    rightServoSpeed = slowSpeed-(maxSpeed*percentMotorDecrease); //Sets right to slow speed (with percentage increase to fix differing speed issues
+  }
+  else if (SensorDifference < sensDiffThresh)
+  { // If Sensor Differance is below threshold, Do:
+    leftServoSpeed = maxSpeed; //Full Speed Foward
+    rightServoSpeed = maxSpeed-(maxSpeed*percentMotorDecrease); // Full speed foward (with modifier)
+  }
 }
 
 // ===============================================================================
 
-void loop(){
-
-currentTime = millis();  // Get the current time
-
-Flash();
-
-FlashCounter();
+void loop()
+{
+  currentTime = millis();  // Get the current time
   
-updateDirection();
-
-spin(leftServoSpeed,rightServoSpeed);
+  Flash();
   
-  if (currentTime - previousTimeRun >= runInterval) {
+  FlashCounter();
+  
+  //updateDirection();
+
+  //spin(leftServoSpeed,rightServoSpeed);
+  
+  if ((currentTime - previousTimeRun) >= runInterval)
+  {
     previousTimeRun = currentTime;
-    if (correctSignal == true){
+    
+    if (correctSignal == true)
+    {
       updateDirection();
-      spin(leftServoSpeed,rightServoSpeed);
+      
+      spin(leftServoSpeed, rightServoSpeed);
+      
       Serial.println("Updated Direction and speed");
     }
-    else{
-      spin(0,0);
-      Serial.println("HALT");
+    else
+    {
+      spin(0, 0);
+      
+      Serial.println("Halt");
     }
   }
 }
